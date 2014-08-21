@@ -1,1 +1,62 @@
-/Users/xslim/.fresh/build/gitconfig
+# Set your name and email with the following:
+#   git config -f ~/.gitconfig.local user.name John Appleseed
+#   git config -f ~/.gitconfig.local user.email me@example.com
+
+[include]
+  path = .gitconfig.local
+
+[color]
+  ui = true
+  diff = true
+
+[core]
+  editor = vim
+
+[alias]
+  co  = checkout
+  st  = status -s
+  com = commit
+  br  = branch
+  cl1 = clone --depth 1 --recurse-submodules
+  rbc = rebase --continue
+  sub = submodule
+  sup = submodule update
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %an)%Creset' --abbrev-commit --date=relative
+  ls  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+  # Show modified files in last commit 
+  dl  = "!git ll -1"
+
+  # Show a diff last commit
+  dlc = diff --cached HEAD^
+  dlcw = diff --cached HEAD^ --color-words --word-diff
+  diffw = diff --color-words --word-diff
+
+  hist  = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
+  # Find a file path in codebase
+  f = "!git ls-files | grep -i"
+
+  # Search/grep your entire codebase for a string
+  grep  = grep -Ii
+  gr  = grep -Ii
+
+  # Grep from root folder
+  gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+  # Show the last tag
+  lasttag = describe --tags --abbrev=0
+  lt  = describe --tags --abbrev=0
+
+  # List all your Aliases
+  la = "!git config -l | grep alias | cut -c 7- | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g'"
+  #la  = "!grep '\t=' ~/.gitconfig | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g' | less -R"
+
+[push]
+  default = simple
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
