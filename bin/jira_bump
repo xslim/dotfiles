@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+// npm install -g git://github.com/xslim/jilla.git
+// jira_bump - see running issues and what will be done
+// Jira_bump 81 - bump with build 81
+
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { console.log(stdout) } //sys.puts
+
+var issues = [];
+
+exec('jilla ls running', function(err, out, stderr){
+  
+  var lines = out.split("\n");
+  lines.forEach(function(line){
+    var s = line;
+    var n = s.indexOf(' ');
+    s = s.substring(0, n != -1 ? n : s.length);
+    s = s.trim();
+    if (s.length > 0) {
+      issues.push(s);
+    }
+    
+  });
+  
+  var new_status = 731;
+  
+  var build = process.argv[2];
+  if (build == null) {
+    console.log('Can bump with status '+new_status+ ': ' + issues.join(', '));
+    console.log(out);
+    
+    if (issues.length > 0) {
+      exec('jilla status '+issues[0], puts);
+    }
+  
+    return;
+  }
+  
+  console.log('Bumping #' + build + ' on issues: '+ issues.join(', '));
+  var comment = ' "Build #'+build+'"';
+  
+  
+  issues.forEach(function(item){
+    exec('jilla comment '+item + comment, puts);
+    exec('jilla status '+item + ' ' + new_status, puts);
+  });
+  
+})
