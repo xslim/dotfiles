@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:$HOME/.bin:$PATH"
+export PATH="${HOME}/bin:${HOME}/homebrew/bin:${PATH}"
 
 # add a poor facsimile for Linux's `free` if we're on Mac OS
 if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]]
