@@ -93,6 +93,10 @@ then
   source "$(brew --prefix)/Library/Contributions/brew_bash_completion.sh"
 fi
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 # initialise autojump
 #if which brew &> /dev/null; then
 #  AUTOJUMP_SCRIPT="$(brew --prefix)/etc/autojump"
