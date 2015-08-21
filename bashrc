@@ -138,6 +138,7 @@ fi
 [[ -n "$rvm_path" ]] && [[ -r "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
 export rvm_pretty_print_flag=1
 
+eval "$(rbenv init -)"
 
 # fresh: colors/shell/base16-default.dark.sh
 
