@@ -15,12 +15,12 @@ check_git() {
   if [[ -n "$(git -C ${1} status --porcelain)" ]]; then
     DIRTY_GIT_COMMIT+=(${1})
     return
-	fi 
+  fi 
 
   if [[ -n "$(git -C ${1} log --branches --not --remotes --no-color --oneline)" ]]; then
     DIRTY_GIT_REMOTE+=(${1})
     return
-	fi 
+  fi 
 }
 
 dirty_check() {
@@ -43,7 +43,7 @@ print_dirty()
       local dir=${i/${HOME}/'~'}
       echo "  ${dir}"
     done
-	fi
+  fi
 }
 
 dirs=()
