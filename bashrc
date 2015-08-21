@@ -93,6 +93,9 @@ then
   source "$(brew --prefix)/Library/Contributions/brew_bash_completion.sh"
 fi
 
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
+
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi

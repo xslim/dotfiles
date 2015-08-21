@@ -7,19 +7,12 @@ cd ~
 #tap thoughtbot/formulae
 #install rcm
 
+apps=( tree tmux jq npm bash-completion rbenv ruby-build )
 
+for i in ${apps[@]}; do
+  brew install ${i}
+done
 
-brew install tree
-brew install tmux
-brew install jq
-
-brew install nvn 
-brew install npm 
-
-brew install bash-completion
-
-# Ruby
-brew install rbenv ruby-build
 
 #Cask
 
@@ -28,7 +21,11 @@ export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
 
 brew install caskroom/cask/brew-cask
 
-brew cask install dropbox
-brew cask install 1password
+# 1password
+apps=( dropbox transmission ) 
+
+for i in ${apps[@]}; do
+  brew cask install ${i}
+done
 
 

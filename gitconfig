@@ -54,6 +54,9 @@
   # List all your Aliases
   la = "!git config -l | grep alias | cut -c 7- | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g'"
   #la  = "!grep '\t=' ~/.gitconfig | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g' | less -R"
+  
+  # Unpushed stuff
+  unpushed = "log --branches --not --remotes"
 
 [push]
   default = simple
