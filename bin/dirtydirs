@@ -14,12 +14,12 @@ check_git() {
   
   if [[ -n "$(git -C ${1} status --porcelain)" ]]; then
     DIRTY_GIT_COMMIT+=(${1})
-		return
+    return
 	fi 
-		
+
   if [[ -n "$(git -C ${1} log --branches --not --remotes --no-color --oneline)" ]]; then
-		DIRTY_GIT_REMOTE+=(${1})
-		return
+    DIRTY_GIT_REMOTE+=(${1})
+    return
 	fi 
 }
 
@@ -37,12 +37,12 @@ print_dirty()
   local i
 
   if [ ${#arr[@]} != 0 ]; then
-		echo "$msg:"
-		for i in ${arr[@]}; do
+    echo "$msg:"
+    for i in ${arr[@]}; do
       # Convert to relative path
-	    local dir=${i/${HOME}/'~'}
-			echo "  ${dir}"
-		done
+      local dir=${i/${HOME}/'~'}
+      echo "  ${dir}"
+    done
 	fi
 }
 
