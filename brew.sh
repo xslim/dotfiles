@@ -18,6 +18,9 @@ brew install npm
 
 brew install bash-completion
 
+# Ruby
+brew install rbenv ruby-build
+
 #Cask
 
 # Specify your defaults in this environment variable
