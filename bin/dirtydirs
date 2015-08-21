@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Usage:
+# dirtydirs         - Checks directories listed in ~/.dirtydirs
+# dirtydirs add .   - Adds current folder to ~/.dirtydirs
+# dirtydirs edit    - Opens ~/.dirtydirs in VIM
+
 DIR_PATHS_FILE="${HOME}/.dirtydirs"
 DIRTY_GIT_COMMIT=()
 DIRTY_GIT_REMOTE=()
