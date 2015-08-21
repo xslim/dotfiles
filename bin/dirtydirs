@@ -13,7 +13,7 @@ check_git() {
   [ -d "${1}/.git" ] || return
   
   if [[ -n "$(git -C ${1} status --porcelain)" ]]; then
-		DIRTY_GIT_COMMIT+=(${1})
+    DIRTY_GIT_COMMIT+=(${1})
 		return
 	fi 
 		
