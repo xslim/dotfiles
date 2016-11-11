@@ -11,6 +11,9 @@ tap 'caskroom/cask'
 
 # Usefull stuff
 brew 'tmux'
+brew 'jq'
+brew 'tree'
+# npm bash-completion rbenv ruby-build
 
 # git for Github
 brew 'hub'
