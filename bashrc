@@ -1,49 +1,25 @@
-export PATH="${HOME}/bin:${HOME}/homebrew/bin:${PATH}"
 
-# add a poor facsimile for Linux's `free` if we're on Mac OS
-if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]]
-then
-  alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
-fi
+# Settings
 
-alias dir='echo Use /bin/ls :\) >&2; false' # I used this to ween myself away from the 'dir' alias
-#alias mate='echo Use mvim :\) >&2; false'
-alias nano='echo Use vim :\) >&2; false'
-
-# handy aliases
-alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
-alias ll='ls -lah'
-alias tm='tmux attach || tmux new'
-
-alias fixall='rm -rf "${HOME}/Library/Developer/Xcode/DerivedData/"'
-
-# fresh: shell/profile.sh
+# Helper functions
+has_cmd () {
+  command -v "$1" >/dev/null 2>&1 ;
+}
 
 
-# Locale stuff
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
-
-# general shell settings
-export FIGNORE="CVS:.DS_Store:.svn:__Alfresco.url"
-export MAKEFLAGS='-j 3'
-
 export CLICOLOR=1
 export EDITOR='vim'
 
-export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
+export PATH="${HOME}/bin:/usr/local/bin:${PATH}"
+
+# Faster, but make break stuff
+#export MAKEFLAGS='-j 3'
 
 complete -d cd mkdir rmdir
 
 #  export GREP_OPTIONS='--color=auto'
-#  alias ls="ls --color=auto --classify --block-size=\'1"
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-   alias ls='ls --color=auto'
-#elif [ $platform == 'freebsd' ] || [ $platform == 'mac' ] ; then
-#   alias ls='ls -G'
-#   echo "Aliasing ls -G"
-fi
-
 # awesome history tracking
 export HISTSIZE=100000
 export HISTFILESIZE=100000
@@ -67,54 +43,13 @@ unset MAILCHECK
 shopt -s checkwinsize
 
 # set JAVA_HOME if on Mac OS
-if [ -z "$JAVA_HOME" -a -d /System/Library/Frameworks/JavaVM.framework/Home ]
-then
+if [ -z "$JAVA_HOME" -a -d /System/Library/Frameworks/JavaVM.framework/Home ]; then
   export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 fi
 
-# lesspipe lets us do cool things like view gzipped files
-if which lesspipe &> /dev/null
-then
-  eval "$(lesspipe)"
-elif which lesspipe.sh &> /dev/null
-then
-  eval "$(lesspipe.sh)"
-fi
-
-# alias Debian's `ack-grep` to `ack`
-if type -t ack-grep > /dev/null
-then
-  alias ack=ack-grep
-fi
-
-# load Homebrew's shell completion
-if which brew &> /dev/null && [ -f "$(brew --prefix)/Library/Contributions/brew_bash_completion.sh" ]
-then
-  source "$(brew --prefix)/Library/Contributions/brew_bash_completion.sh"
-fi
-
-export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
 
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-fi
 
-# initialise autojump
-#if which brew &> /dev/null; then
-#  AUTOJUMP_SCRIPT="$(brew --prefix)/etc/autojump"
-#  if [ -e "$AUTOJUMP_SCRIPT" ]; then
-#    source "$AUTOJUMP_SCRIPT"
-#  fi
-#fi
-
-# load local shell configuration if present
-if [[ -f ~/.bashrc.local ]]
-then
-   source ~/.bashrc.local
-fi
-
-# fresh: shell/prompt.sh
 
 export PS1=""
 export PS1="$PS1\[\033[01;34m\]\w"
@@ -128,26 +63,41 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 # finish off the prompt
 export PS1="$PS1"'\[\033[00m\]\$ '
 
-# fresh: shell/sources.sh
+
+# If Homebrew
+if has_cmd brew ; then
+  BREW_PREFIX=`brew --prefix`
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
+
+  if [ -f ${BREW_PREFIX}/etc/bash_completion ]; then
+    . ${BREW_PREFIX}/etc/bash_completion
+  fi
+
+  [ -d ${BREW_PREFIX}/opt/android-sdk ] && export ANDROID_HOME=${BREW_PREFIX}/opt/android-sdk
+  [ -d ${BREW_PREFIX}/opt/go/ ] && export PATH=$PATH:${BREW_PREFIX}/opt/go/libexec/bin
+
+  #  AUTOJUMP_SCRIPT="$(brew --prefix)/etc/autojump"
+  #  if [ -e "$AUTOJUMP_SCRIPT" ]; then
+  #    source "$AUTOJUMP_SCRIPT"
+  #  fi
+fi
+
+
+# lesspipe lets us do cool things like view gzipped files
+#has_cmd lesspipe && eval "$(lesspipe)"
 
 
 # enable rvm if available
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
   source "$HOME/.rvm/scripts/rvm"
   PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-elif [[ -s "/usr/local/rvm/scripts/rvm" ]]; then
-  source "/usr/local/rvm/scripts/rvm"
+  [[ -n "$rvm_path" ]] && [[ -r "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
+  export rvm_pretty_print_flag=1
 fi
-[[ -n "$rvm_path" ]] && [[ -r "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
-export rvm_pretty_print_flag=1
+has_cmd rbenv && eval "$(rbenv init -)"
 
-eval "$(rbenv init -)"
-
-# fresh: colors/shell/base16-default.dark.sh
-
-#!/bin/sh
+[ -f ~/bin/z.sh ] && source ~/bin/z.sh
 # Base16 Default - Console color setup script
-# Chris Kempson (http://chriskempson.com)
 
 color00="15/15/15" # Base 00 - Black
 color01="ac/41/42" # Base 08 - Red
@@ -237,7 +187,41 @@ unset color20
 unset color21
 
 
-[ -f ~/.bin/z.sh ] && source ~/.bin/z.sh
 
-# added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+
+[ -d ${HOME}/.nvm ] && export NVM_DIR=${HOME}/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+#export GOPATH=${HOME}/src/gocode
+
+# Aliases
+
+# add a poor facsimile for Linux's `free` if we're on Mac OS
+if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]]; then
+  alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
+fi
+
+#  alias ls="ls --color=auto --classify --block-size=\'1"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+   alias ls='ls --color=auto'
+#elif [ $platform == 'freebsd' ] || [ $platform == 'mac' ] ; then
+#   alias ls='ls -G'
+fi
+
+# alias Debian's `ack-grep` to `ack`
+if type -t ack-grep > /dev/null
+then
+  alias ack=ack-grep
+fi
+
+alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
+alias ll='ls -lah'
+alias tm='tmux attach || tmux new'
+
+
+# load local shell configuration if present
+if [[ -f ~/.bashrc.local ]]; then
+   source ~/.bashrc.local
+fi
+
