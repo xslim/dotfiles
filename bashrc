@@ -12,7 +12,7 @@ export LC_CTYPE=en_US.UTF-8
 export CLICOLOR=1
 export EDITOR='vim'
 
-export PATH="${HOME}/bin:/usr/local/bin:${PATH}"
+export PATH="${HOME}/bin:/usr/local/bin:/usr/local/sbin:${PATH}"
 
 # Faster, but make break stuff
 #export MAKEFLAGS='-j 3'
@@ -49,20 +49,24 @@ fi
 
 
 
-
-
-export PS1=""
-export PS1="$PS1\[\033[01;34m\]\w"
+PS1="\[\033[01;34m\]\W";
+#PS1="\[\033]0;\W\007\]"; # working directory base name
 
 # add git status if available
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
-#export PS1="$PS1"'\[\033[01;30m\]$(type __git_ps1 &> /dev/null && __git_ps1 " (%s)")'
+
+if [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash ]; then
+  . /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+  source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
+  PS1+='\[\e[1;33m\]$(__git_ps1 " (%s)")\[\e[0m\]';
+fi
+
 
 # finish off the prompt
-export PS1="$PS1"'\[\033[00m\]\$ '
-
+PS1+="\[\033[00m\]\$ "
+export PS1;
 
 # If Homebrew
 if has_cmd brew ; then
@@ -220,6 +224,14 @@ alias datestamp='date +"%F %T"'
 alias ll='ls -lah'
 alias tm='tmux attach || tmux new'
 alias mkdir="mkdir -p"
+
+alias localip="ipconfig getifaddr en0"
+
+# macOS has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# macOS has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
 # load local shell configuration if present
 if [[ -f ~/.bashrc.local ]]; then

@@ -9,3 +9,8 @@ xcuserdata
 
 # OS X noise
 .DS_Store
+.Spotlight-V100
+.Trashes
+
+# Compiled Python files
+*.pyc
