@@ -215,10 +215,11 @@ then
   alias ack=ack-grep
 fi
 
-alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
+alias timestamp='date +"%s"'
+alias datestamp='date +"%F %T"'
 alias ll='ls -lah'
 alias tm='tmux attach || tmux new'
-
+alias mkdir="mkdir -p"
 
 # load local shell configuration if present
 if [[ -f ~/.bashrc.local ]]; then
