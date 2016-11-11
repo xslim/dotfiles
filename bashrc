@@ -48,21 +48,33 @@ if [ -z "$JAVA_HOME" -a -d /System/Library/Frameworks/JavaVM.framework/Home ]; t
 fi
 
 
+function __git_ps1_bits {
+  has_cmd git || return 
+  git status --ignore-submodules --porcelain -b 2> /dev/null | (
+      unset branch dirty deleted untracked newfile copied renamed
+      while read line ; do
+          case "${line//[[:space:]]/}" in
+            '##'*)         branch=`expr "$line" : '## \(.[^\.]*\)'` ; ;;
+            'M'*)          dirty='!' ; ;;
+            'UU'*)         dirty='!' ; ;;
+            'D'*)          deleted='x' ; ;;
+            '??'*)         untracked='?' ; ;;
+            'A'*)          newfile='+' ; ;;
+            'C'*)          copied='*' ; ;;
+            'R'*)          renamed='>' ; ;;
+          esac
+      done
+      local out=""
+      bits="$dirty$deleted$untracked$newfile$copied$renamed"
+      [ -n "$branch" ] && out+=$branch
+      [ -n "$bits" ] && out+=" $bits"
+      [ -n "$out" ] && echo "($out)" || echo
+  )
+}
 
 PS1="\[\033[01;34m\]\W";
 #PS1="\[\033]0;\W\007\]"; # working directory base name
-
-# add git status if available
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=1
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-
-if [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash ]; then
-  . /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
-  source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
-  PS1+='\[\e[1;33m\]$(__git_ps1 " (%s)")\[\e[0m\]';
-fi
-
+PS1+='\[\e[1;33m\] $(__git_ps1_bits " (%s)")\[\e[0m\]';
 
 # finish off the prompt
 PS1+="\[\033[00m\]\$ "
@@ -237,4 +249,5 @@ command -v sha1sum > /dev/null || alias sha1sum="shasum"
 if [[ -f ~/.bashrc.local ]]; then
    source ~/.bashrc.local
 fi
+
 
