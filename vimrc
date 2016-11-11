@@ -44,7 +44,6 @@ set matchtime=2                            " (for only .2 seconds).
 set ignorecase                             " Ignore case by default when searching
 set smartcase                              " Switch to case sensitive mode if needle contains uppercase characters
 
-" Stuff loaded from tpope/vim-sensible
 syntax on                                  " Turn on syntax highlighting
 filetype plugin indent on                  " Enable automatic filetype detection, filetype-specific plugins/indentation
 set encoding=utf-8
@@ -85,6 +84,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "  source ~/.vim/plugins.vim
 "endif
 
+" Plugins
+if exists("plug#begin")
 call plug#begin()
 
 "Plug 'tpope/vim-sensible'
@@ -109,3 +110,5 @@ map <leader>nf :NERDTreeFind<cr>
 
 " TagBar, requires ctag!
 map <leader>tt :TagbarToggle<cr>
+
+endif " /plugins
