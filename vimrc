@@ -85,7 +85,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "endif
 
 " Plugins
-if exists("plug#begin")
+if filereadable($HOME ."/.vim/autoload/plug.vim")
 call plug#begin()
 
 "Plug 'tpope/vim-sensible'

@@ -8,9 +8,13 @@
 [color]
   ui = true
   diff = true
+  status = auto
+  branch = auto
+  interactive = auto
 
 [core]
   editor = vim
+  excludesfile = ~/.gitignore
 
 [apply]
   whitespace = nowarn

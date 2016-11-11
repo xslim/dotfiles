@@ -1,1 +1,7 @@
-Trying https://github.com/thoughtbot/dotfiles
+# dotfiles
+
+## Install
+
+```sh
+install.sh -f
+```

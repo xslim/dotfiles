@@ -1,0 +1,11 @@
+# Xcode noise
+*.pbxuser
+xcuserdata
+
+# AppCode
+.idea
+
+.svn
+
+# OS X noise
+.DS_Store
