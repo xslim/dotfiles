@@ -1,4 +1,3 @@
-# vim: syntax=ini:
 # Set your name and email with the following:
 #   git config -f ~/.gitconfig.local user.name John Appleseed
 #   git config -f ~/.gitconfig.local user.email me@example.com
@@ -13,6 +12,9 @@
 [core]
   editor = vim
 
+[apply]
+  whitespace = nowarn
+
 [alias]
   co  = checkout
   st  = status -s
@@ -21,7 +23,7 @@
   cl1 = clone --depth 1 --recurse-submodules
   rbc = rebase --continue
   sub = submodule
-  sup = submodule update
+  sup = submodule update --init
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %an)%Creset' --abbrev-commit --date=relative
   ls  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
   ll  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
@@ -61,3 +63,10 @@
 
 [push]
   default = simple
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
