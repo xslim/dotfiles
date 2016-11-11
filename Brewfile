@@ -13,7 +13,17 @@ tap 'caskroom/cask'
 brew 'tmux'
 brew 'jq'
 brew 'tree'
+brew 'openssl'
+brew 'wget'
 # npm bash-completion rbenv ruby-build
+
+# brew 'go'
+# brew 'node'
+# brew 'rbenv'
 
 # git for Github
 brew 'hub'
+
+cask '1password'
+cask 'google-chrome'
+# cask 'slack'
