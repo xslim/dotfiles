@@ -113,6 +113,7 @@ fi
 has_cmd rbenv && eval "$(rbenv init -)"
 
 [ -f ~/bin/z.sh ] && source ~/bin/z.sh
+
 # Base16 Default - Console color setup script
 
 color00="15/15/15" # Base 00 - Black

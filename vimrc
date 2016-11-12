@@ -6,8 +6,7 @@ set nolist                                 " Hide invisibles by default
 set showmode                               " Show current mode down the bottom
 set ttyfast                                " More smooth screen redrawing
 "set noesckeys                              " Disable extended key support (cursor keys, function keys). Improves <Esc> time dramatically.
-set number                                 " Show line numbers
-set mouse=                                 " Disable the mouse
+set mouse=a                                " Disable the mouse
 set linespace=2                            " Spacing between lines
 set noswapfile                             " Disable creation of *.swp files
 set title                                  " Show title in terminal vim
@@ -43,6 +42,7 @@ set matchtime=2                            " (for only .2 seconds).
 " Searching
 set ignorecase                             " Ignore case by default when searching
 set smartcase                              " Switch to case sensitive mode if needle contains uppercase characters
+"set hlsearch                               " Highlight search results
 
 syntax on                                  " Turn on syntax highlighting
 filetype plugin indent on                  " Enable automatic filetype detection, filetype-specific plugins/indentation
@@ -51,11 +51,18 @@ set listchars=trail:.,tab:▸\ ,eol:¬        " Change the invisible characters
 set autoindent                             " Keep the indent when creating a new line
 set backspace=2                            " Allow backspacing over autoindent, EOL, and BOL
 set smarttab                               " Use shiftwidth and softtabstop to insert or delete (on <BS>) blanks
+
+set relativenumber                         " Relative line numbers"
+set number                                 " Show line numbers
 set ruler                                  " Show ruler
+"set rulerformat=%l\:%c 
+
 set showcmd                                " Show incomplete cmds down the bottom
 set wildmenu                               " Make tab completion act more like bash
 set autoread                               " Automatically reload externally modified files when clean
 set history=1000                           " Remember more history for commands and search patterns
+
+set laststatus=2
 
 set background=dark
 try
@@ -66,7 +73,10 @@ endtry
 
 let mapleader = ","                        " Remap leader to ',' which is much easier than '\'
 
-set laststatus=2
+
+
+nmap <leader>' :set relativenumber!<cr>
+nmap <leader>" :set number! <bar> :set relativenumber!<cr>
 
 " if exists(':AirlineToggle')
 "  set noshowmode
