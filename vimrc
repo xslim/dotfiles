@@ -17,6 +17,9 @@ set spelllang=en_us                        " Set default spelling language to En
 set shortmess+=I                           " Disable splash screen
 set noequalalways                          " Don't equalize when opening/closing windows
 
+" MacOSX system clipboard
+set clipboard=unnamedplus
+
 " Indentation
 set shiftwidth=2                           " Number of spaces to use in each autoindent step
 set tabstop=2                              " Two tab spaces
