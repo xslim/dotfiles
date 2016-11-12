@@ -1,4 +1,5 @@
 # To Use:
+# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # brew tap Homebrew/bundle
 # brew bundle
 
@@ -23,6 +24,9 @@ brew 'wget'
 
 # git for Github
 brew 'hub'
+
+# Mac bugfixing
+brew 'reattach-to-user-namespace'
 
 cask '1password'
 cask 'google-chrome'
