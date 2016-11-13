@@ -1,0 +1,33 @@
+# vim: set ft=muttrc:
+#set realname = 'Taras Kalapun'
+
+#set my_home_email = "t.kalapun@gmail.com"
+#set my_home_pw = `pass mutt_gmail`
+
+#alternates 
+
+
+set from = "t.kalapun@gmail.com"
+
+set imap_user = "$my_home_email"
+set imap_pass = "$my_home_pw"
+set smtp_url  = "smtps://$my_home_email@smtp.gmail.com:587/"
+set smtp_pass = "$my_home_pw"
+set smtp_authenticators = 'gssapi:login'                # Gmail SMTP Auth fix
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
+#set trash="imaps://imap.gmail.com/[Gmail]/Trash"
+unset record
+
+set header_cache=~/.mutt/home/cache/headers
+set message_cachedir=~/.mutt/home/cache/bodies
+set certificate_file=~/.mutt/home/certificates
+
+#folder-hook  'imaps://imap.gmail.com:993' 'source ~/.mutt/account.home'
+#account-hook  gmail.com "set imap_user=$my_home_email imap_pass=$my_home_pw"
+#
+
+#unmailboxes *
+#mailboxes =INBOX =Drafts =Sent =Trash
