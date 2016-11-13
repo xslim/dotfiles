@@ -18,16 +18,28 @@ brew 'openssl'
 brew 'wget'
 # npm bash-completion rbenv ruby-build
 
-# brew 'go'
-# brew 'node'
-# brew 'rbenv'
+# Console everyday apps
+brew 'mutt' # Mail client
+brew 'gpg'
+
+brew 'w3m' # Viewing sites
+brew 'imagemagick'
+
+# Dev stuff
+brew 'node'
+brew 'go'
+brew 'heroku'
 
 # git for Github
 brew 'hub'
+
+# Mac specific
+brew 'mas' # Mac app store
 
 # Mac bugfixing
 brew 'reattach-to-user-namespace'
 
 cask '1password'
 cask 'google-chrome'
+cask 'gpgtools'
 # cask 'slack'
