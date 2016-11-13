@@ -10,7 +10,8 @@ set mouse=a                                " Disable the mouse
 set linespace=2                            " Spacing between lines
 set noswapfile                             " Disable creation of *.swp files
 set title                                  " Show title in terminal vim
-set modelines=1                            " Check the first line of files for a modeline (tab vs spaces, etc)
+
+set modelines=2                            " Check the first line of files for a modeline (tab vs spaces, etc)
 "set autoread                               " Automatically reload externally modified files when clean
 "set autowriteall                           " Automatically write modified files
 set spelllang=en_us                        " Set default spelling language to English (Australia)
