@@ -22,7 +22,7 @@
 [alias]
   co  = checkout
   st  = status -s
-  com = commit
+  com = commit -m
   br  = branch
   cl1 = clone --depth 1 --recurse-submodules
   rbc = rebase --continue
