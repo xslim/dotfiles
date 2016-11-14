@@ -1,0 +1,21 @@
+# vi: ft=muttrc
+
+set my_home_email = "t.kalapun@gmail.com"
+set my_home_pw = `pass mutt_gmail`
+set my_work_email  = 'taras.kalapun@adyen.com'
+set my_work_pw = `pass mutt_work`
+
+account-hook . 'unset imap_user; unset imap_pass'
+account-hook gmail.com "set imap_user=$my_home_email imap_pass=$my_home_pw"
+account-hook adyen.com "set imap_user=$my_work_email imap_pass=$my_work_pw"
+
+folder-hook 'gmail.com' 'source ~/.mutt/account.home'
+folder-hook 'adyen.com' 'source ~/.mutt/account.work'
+
+# Default
+source ~/.mutt/account.home
+
+# Macros for switching accounts
+macro index g1 "<sync-mailbox><enter-command>source ~/.mutt/account.home<enter><change-folder>?<change-dir><home>^K=<enter><exit><change-folder>!<enter>"
+macro index g2 "<sync-mailbox><enter-command>source ~/.mutt/account.work<enter><change-folder>?<change-dir><home>^K=<enter><exit><change-folder>!<enter>"
+

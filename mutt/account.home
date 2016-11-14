@@ -1,11 +1,9 @@
-# vim: set ft=muttrc:
-#set realname = 'Taras Kalapun'
+# vi: ft=muttrc
 
 #set my_home_email = "t.kalapun@gmail.com"
 #set my_home_pw = `pass mutt_gmail`
 
 #alternates 
-
 
 set from = "t.kalapun@gmail.com"
 
@@ -17,17 +15,18 @@ set smtp_authenticators = 'gssapi:login'                # Gmail SMTP Auth fix
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set postponed = "+[Gmail]/Drafts"
+set trash = "imaps://imap.gmail.com/[Gmail]/Trash"
+
+# prompt to archive your read messages
 set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
-#set trash="imaps://imap.gmail.com/[Gmail]/Trash"
+
 unset record
 
-set header_cache=~/.mutt/home/cache/headers
-set message_cachedir=~/.mutt/home/cache/bodies
-set certificate_file=~/.mutt/home/certificates
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+#macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 
-#folder-hook  'imaps://imap.gmail.com:993' 'source ~/.mutt/account.home'
-#account-hook  gmail.com "set imap_user=$my_home_email imap_pass=$my_home_pw"
-#
+set header_cache=~/Mail/home/cache/headers
+set message_cachedir=~/Mail/home/cache/bodies
+set certificate_file=~/Mail/home/certificates
 
-#unmailboxes *
-#mailboxes =INBOX =Drafts =Sent =Trash
