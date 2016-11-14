@@ -81,6 +81,8 @@ PS1+="\[\033[00m\]\$ "
 export PS1;
 
 # If Homebrew
+[ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/bin:$PATH
+
 if has_cmd brew ; then
   BREW_PREFIX=`brew --prefix`
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
