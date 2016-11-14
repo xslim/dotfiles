@@ -1,4 +1,5 @@
 # vi: ft=muttrc
+# https://dev.mutt.org/trac/wiki/UseCases/Gmail
 
 #set my_home_email = "t.kalapun@gmail.com"
 #set my_home_pw = `pass mutt_gmail`

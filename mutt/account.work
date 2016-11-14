@@ -1,4 +1,5 @@
 # vi: ft=muttrc
+# https://dev.mutt.org/trac/wiki/MuttGuide/UseIMAP
 
 #set my_work_email  = 'taras.kalapun@adyen.com'
 #set my_work_pw = `pass mutt_work`
