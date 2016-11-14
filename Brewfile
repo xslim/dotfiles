@@ -42,7 +42,8 @@ brew 'reattach-to-user-namespace'
 
 cask '1password'
 cask 'google-chrome'
-# cask 'slack'
+cask 'slack'
+cask 'skype'
 
 # Need sudo
 #cask 'gpgtools'
