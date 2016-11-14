@@ -21,6 +21,7 @@ brew 'wget'
 # Console everyday apps
 brew 'mutt' # Mail client
 brew 'gpg'
+brew 'pass'
 
 brew 'w3m' # Viewing sites
 brew 'imagemagick'
@@ -41,5 +42,7 @@ brew 'reattach-to-user-namespace'
 
 cask '1password'
 cask 'google-chrome'
-cask 'gpgtools'
 # cask 'slack'
+
+# Need sudo
+#cask 'gpgtools'
