@@ -1,8 +1,8 @@
-# vi: ft=gitconfig
+# vim: ft=gitconfig
 
 [user]
-	name = Taras Kalapun
-	email = t.kalapun@gmail.com
+  name = Taras Kalapun
+  email = t.kalapun@gmail.com
   signingkey = 140D348B103353A7
 
 [core]
@@ -81,17 +81,17 @@
   gpgsign = true
 
 [branch]
-	autosetupmerge = always
-	autosetuprebase = local
+  autosetupmerge = always
+  autosetuprebase = local
 
 [branch "master"]
-	rebase = true
-
+  rebase = true
 
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+  
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
