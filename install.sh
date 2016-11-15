@@ -2,6 +2,8 @@
 
 set -e
 
+FILES=("bin" ".bashrc" ".bash_profile" ".tmux.conf" ".gitconfig" ".gitignore" ".vimrc" ".vim")
+
 DOT_ROOT=$(pwd -P)
 DOT_OLD=${HOME}/dotfiles_old
 
@@ -58,12 +60,9 @@ link_file () {
 
 prepare
 
-FILES=("bashrc" "bash_profile" "tmux.conf" "gitconfig" "gitignore" "vimrc" "vim")
-
-link_file "${DOT_ROOT}/bin" "${HOME}/bin"
 
 for i in "${FILES[@]}"; do
-  link_file "${DOT_ROOT}/${i}" "${HOME}/.${i}"
+  link_file "${DOT_ROOT}/${i}" "${HOME}/${i}"
 done
 
 $dryrun || source ~/.bashrc
