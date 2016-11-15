@@ -1,4 +1,4 @@
-# vim: ft=gitconfig
+# vim: set ft=gitconfig:
 
 [user]
   name = Taras Kalapun
