@@ -1,16 +1,9 @@
-# Set your name and email with the following:
-#   git config -f ~/.gitconfig.local user.name John Appleseed
-#   git config -f ~/.gitconfig.local user.email me@example.com
+# vi: ft=gitconfig
 
-[include]
-  path = .gitconfig.local
-
-[color]
-  ui = auto
-  diff = auto
-  status = auto
-  branch = auto
-  interactive = auto
+[user]
+	name = Taras Kalapun
+	email = t.kalapun@gmail.com
+  signingkey = 140D348B103353A7
 
 [core]
   editor = vim
@@ -19,10 +12,20 @@
 [apply]
   whitespace = nowarn
 
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+
 [alias]
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+
   co  = checkout
   st  = status -s
-  com = commit -m
   br  = branch
   cl1 = clone --depth 1 --recurse-submodules
   rbc = rebase --continue
@@ -33,6 +36,9 @@
   ll  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
   lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+  com = commit -m
+  coma = commit -am
 
   # Show modified files in last commit 
   dl  = "!git ll -1"
@@ -65,13 +71,21 @@
   # Unpushed stuff
   unpushed = "log --branches --not --remotes"
 
+
 [push]
-  default = matching
+  default = simple #matching
   followTags = true
 
 [commit]
   # https://help.github.com/articles/signing-commits-using-gpg/
   gpgsign = true
+
+[branch]
+	autosetupmerge = always
+	autosetuprebase = local
+
+[branch "master"]
+	rebase = true
 
 
 [filter "media"]
