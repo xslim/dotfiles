@@ -236,7 +236,7 @@ fi
 
 alias timestamp='date +"%s"'
 alias datestamp='date +"%F %T"'
-alias ll='ls -lah'
+alias ll='ls -lAh'
 alias tm='tmux attach || tmux new'
 alias mkdir="mkdir -p"
 
