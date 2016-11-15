@@ -46,8 +46,10 @@ alternative_order text/plain text/enriched text/html     # save html for last
 # G to get mail
 bind index G imap-fetch-mail
 
-bind index K mail
-bind pager K mail
+#bind index K mail
+#bind pager K mail
+
+bind index,pager R group-reply
 
 #macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
@@ -55,7 +57,11 @@ macro index,pager gl "<change-folder>?" "Go to 'Label'" # will take you to a lis
 
 macro index,pager b '<enter-command>toggle sidebar_visible<enter>'
 
+set signature="~/.mutt/signature"
+
 source ~/.mutt/colors
 source ~/.mutt/pgp
 
 source ~/.mutt/accounts.init
+
+
