@@ -32,8 +32,11 @@ set foldmethod=indent                      " Fold based on source indentation
 set foldlevelstart=99                      " Expand all folds by default
 
 " Wrap
-set nowrap                                 " I don't always wrap lines...
+"set nowrap                                 " I don't always wrap lines...
+set wrap
+set textwidth=80
 set linebreak                              " ...but when I do, I wrap whole words.
+
 set wildmode=list:longest                  " Tab complete to longest common string, like bash
 set switchbuf=useopen                      " Don't re-open already opened buffers
 
