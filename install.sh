@@ -2,7 +2,12 @@
 
 set -e
 
-FILES=("bin" ".bashrc" ".bash_profile" ".tmux.conf" ".gitconfig" ".gitignore" ".vimrc" ".vim" ".mutt")
+FILES=("bin" \
+  ".bashrc" ".bash_profile" ".bash_colors" ".bash_aliases" \
+  ".tmux.conf" \
+  ".gitconfig" ".gitignore" \
+  ".vimrc" ".vim" \
+  ".mutt")
 
 DOT_ROOT=$(pwd -P)
 DOT_OLD=${HOME}/dotfiles_old
