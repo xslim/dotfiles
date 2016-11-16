@@ -2,16 +2,16 @@
 
 set -e
 
-FILES=("bin" ".bashrc" ".bash_profile" ".tmux.conf" ".gitconfig" ".gitignore" ".vimrc" ".vim")
+FILES=("bin" ".bashrc" ".bash_profile" ".tmux.conf" ".gitconfig" ".gitignore" ".vimrc" ".vim" ".mutt")
 
 DOT_ROOT=$(pwd -P)
 DOT_OLD=${HOME}/dotfiles_old
 
-dryrun=false
+dryrun=true
 
 while [ $# -ge 1 ]; do
   case "$1" in
-    -d) dryrun=true ;;
+    #-d) dryrun=true ;;
     -f) rm -rf ${DOT_OLD} ;;
   esac
   shift
@@ -55,7 +55,7 @@ link_file () {
   fi
 
   $move && do_mv $dst ${DOT_OLD}/
-  $skip || do_ln $src $dst
+  $skip && echo "Skipping $src" || do_ln $src $dst
 }
 
 prepare
