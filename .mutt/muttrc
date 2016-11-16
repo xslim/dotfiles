@@ -31,7 +31,7 @@ set nostrict_threads                    # Lets have some fuzzy threading.
 set envelope_from=yes     # add sender with -f
 set tmpdir="~/tmp"
 set noconfirmappend       # Just append, don't hassle me.
-set auto_tag = yes        # apply mutt commands by default to all selected (tagged) messages
+#set auto_tag = yes        # apply mutt commands by default to all selected (tagged) messages
 set mailcap_path  = ~/.mutt/mailcap
 
 set mail_check = 60  # in seconds
@@ -40,6 +40,12 @@ bind editor <space> noop    # so that the line editor accepts IMAP folders with 
 
 #set sidebar_visible = yes
 #set sidebar_width   = 24
+
+# Header Options -------------------------------------
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+unhdr_order *                           # some distros order things by default
+hdr_order from: to: cc: date: subject:  # and in this order
 
 auto_view text/html                                      # view html automatically
 alternative_order text/plain text/enriched text/html     # save html for last
@@ -58,7 +64,8 @@ macro index,pager gl "<change-folder>?" "Go to 'Label'" # will take you to a lis
 
 macro index,pager b '<enter-command>toggle sidebar_visible<enter>'
 
-set signature="~/.mutt/signature"
+set sig_on_top = yes
+set signature = "~/.mutt/signature"
 
 source ~/.mutt/colors
 source ~/.mutt/pgp
