@@ -12,7 +12,7 @@ dryrun=true
 while [ $# -ge 1 ]; do
   case "$1" in
     #-d) dryrun=true ;;
-    -f) rm -rf ${DOT_OLD} ;;
+    -f) dryrun=false; rm -rf ${DOT_OLD} ;;
   esac
   shift
 done
@@ -20,12 +20,12 @@ done
 $dryrun && echo "Performing Dry run !"
 
 do_mv () {
-  echo "mv $1\t\t-> $2" 
+  echo "mv $1\t\t\t-> $2" 
   $dryrun || mv $1 $2
 }
 
 do_ln () {
-  echo "ln $1\t\t-> $2"
+  echo "ln $1\t\t\t-> $2"
   $dryrun || ln -s $1 $2
 }
 
@@ -48,10 +48,10 @@ link_file () {
 
   if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
     move=true
-    if [ "$(readlink $dst)" == "$src" ]; then
-      skip=true
-      move=false
-    fi
+    # if [ "$(readlink $dst)" == "$src" ]; then
+    #   skip=true
+    #   move=false
+    # fi
   fi
 
   $move && do_mv $dst ${DOT_OLD}/
