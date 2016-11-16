@@ -94,7 +94,6 @@ nmap <leader>" :set number! <bar> :set relativenumber!<cr>
 " Auto reload config on .vimrc change
 autocmd bufwritepost .vimrc source $MYVIMRC
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 
 " Or load from file
@@ -122,6 +121,7 @@ call plug#end()
 " Plugin config
 
 " NerdTree
+let NERDTreeShowHidden=1
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr>
@@ -130,3 +130,6 @@ map <leader>nf :NERDTreeFind<cr>
 map <leader>tt :TagbarToggle<cr>
 
 endif " /plugins
+
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
