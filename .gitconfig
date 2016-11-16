@@ -5,6 +5,9 @@
   email = t.kalapun@gmail.com
   signingkey = 140D348B103353A7
 
+[github]
+  user = xslim
+
 [core]
   editor = vim
   excludesfile = ~/.gitignore

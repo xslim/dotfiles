@@ -3,18 +3,24 @@
 set realname = 'Taras Kalapun'
 
 set charset = "utf-8"
-set use_from = yes
-set envelope_from = yes
+set editor = "vim"
+
 set ssl_starttls = yes
 set ssl_force_tls = yes
-set move = no
 set imap_keepalive = 900
+unset imap_passive
+
+set use_from = yes
+set envelope_from = yes
+set move = no
+set delete=yes
+set abort_nosubject = yes                  # Cancel a message when subject is blank
+
 set sort_aux = reverse-last-date-received       
 set sort = threads
 set sort_re
-set editor = "vim"
+set nostrict_threads                    # Lets have some fuzzy threading.
 set sleep_time = 0 # be fast
-unset imap_passive
 
 set pager_index_lines = 10                 # number of index lines to show
 set pager_context = 3                      # number of context lines to show
@@ -23,12 +29,9 @@ set menu_scroll                            # scroll in menus
 set tilde                                  # show tildes like in vim
 unset markers                              # no ugly plus signs
 set uncollapse_jump                        # don't collapse on an unread message
-set abort_nosubject = yes                  # Cancel a message when subject is blank
 set net_inc = 5                            # Display download progress every 5K 
 set nomark_old                          # Don't mark unread new msgs as old.
 set nobeep                              # We don't need no beeping software.
-set nostrict_threads                    # Lets have some fuzzy threading.
-set envelope_from=yes     # add sender with -f
 set tmpdir="~/tmp"
 set noconfirmappend       # Just append, don't hassle me.
 #set auto_tag = yes        # apply mutt commands by default to all selected (tagged) messages
