@@ -32,6 +32,7 @@ set envelope_from=yes     # add sender with -f
 set tmpdir="~/tmp"
 set noconfirmappend       # Just append, don't hassle me.
 set auto_tag = yes        # apply mutt commands by default to all selected (tagged) messages
+set mailcap_path  = ~/.mutt/mailcap
 
 set mail_check = 60  # in seconds
 
