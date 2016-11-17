@@ -19,7 +19,7 @@ set shortmess+=I                           " Disable splash screen
 set noequalalways                          " Don't equalize when opening/closing windows
 
 " MacOSX system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Indentation
 set shiftwidth=2                           " Number of spaces to use in each autoindent step

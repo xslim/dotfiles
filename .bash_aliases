@@ -34,3 +34,5 @@ alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-
 
 _a_ssht () { ssh $@ -t 'tmux has-session && exec tmux attach -d || exec tmux' -t 0 ; }
 alias ssht=_a_ssht
+
+_has_cmd hub && alias git=hub
