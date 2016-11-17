@@ -1,0 +1,58 @@
+#!/bin/bash
+
+batt_path=/sys/class/power_supply/BAT0
+batt_conn=""
+
+case $(uname -s) in
+  "Darwin")
+    [ "$(pmset -g batt | grep -o 'AC Power')" ] && batt_conn="+ "
+    batt_pct=$(pmset -g batt | grep -o '[0-9]*%' | tr -d %)
+    ;;
+  "Linux")
+    case $(cat /etc/*-release) in
+      *"Arch Linux"*)
+        batt_state=$(cat $batt_path/energy_now)
+        batt_full=$batt_path/energy_full
+        batt_current=$batt_path/energy_now
+        ;;
+      *)
+        batt_state=$(cat $batt_path/status)
+        batt_full=$batt_path/charge_full
+        batt_current=$batt_path/charge_now
+        ;;
+    esac
+
+    [ $batt_state == 'Discharging' ] || batt_conn="+ "
+    now=$(cat $batt_current)
+    full=$(cat $batt_full)
+    batt_pct=$((100 * $now / $full))
+  ;;
+esac
+
+
+color=""
+color_end=""
+
+#if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then 
+if [ "$1" = "-t" ]; then
+  color_end="#[default]"
+  color_g="#[fg=green]"
+  color_y="#[fg=yellow]"
+  color_r="#[fg=red]"
+else
+  color_end='\e[0m'"\n"
+  color_g="\e[0;32m"
+  color_y="\e[0;33m"
+  color_r="\e[0;31m"
+fi
+
+if [[ $batt_pct -ge 75 ]]; then
+    color=$color_g
+elif [[ $batt_pct -ge 25 ]] && [[ $batt_pct -lt 75 ]]; then
+    color=$color_y
+elif [[ $batt_pct -lt 25 ]]; then
+    color=$color_r
+fi
+
+printf "${color}[${batt_conn}${batt_pct}%%]${color_end}"
+
