@@ -22,10 +22,10 @@ set pgp_sign_command="gpg --no-verbose --batch -o - --passphrase-fd 0 --armor --
 set pgp_clearsign_command="gpg --no-verbose --batch -o - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
 
 # create a pgp/mime encrypted attachment
-set pgp_encrypt_only_command="/usr/lib/mutt/pgpewrap gpg -v --batch -o - --encrypt --textmode --armor --always-trust %?a?-u %a? -- -r %r -- %f"
+set pgp_encrypt_only_command="pgpewrap gpg -v --batch -o - --encrypt --textmode --armor --always-trust %?a?-u %a? -- -r %r -- %f"
 
 # create a pgp/mime encrypted and signed attachment
-set pgp_encrypt_sign_command="/usr/lib/mutt/pgpewrap gpg --passphrase-fd 0 -v --batch -o - --encrypt --sign --armor --always-trust %?a?-u %a? -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 -v --batch -o - --encrypt --sign --armor --always-trust %?a?-u %a? -- -r %r -- %f"
 
 # import a key into the public key ring
 set pgp_import_command="gpg --no-verbose --import -v %f"
