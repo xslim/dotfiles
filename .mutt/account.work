@@ -26,5 +26,4 @@ macro index ga "<change-folder>=Archive<enter>" "Go to all mail"
 
 set header_cache=~/Mail/work/cache/headers
 set message_cachedir=~/Mail/work/cache/bodies
-set certificate_file=~/Mail/work/certificates
 

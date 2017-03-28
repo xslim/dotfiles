@@ -35,9 +35,16 @@ set nobeep                              # We don't need no beeping software.
 set tmpdir="~/tmp"
 set noconfirmappend       # Just append, don't hassle me.
 #set auto_tag = yes        # apply mutt commands by default to all selected (tagged) messages
+
+set mime_forward = yes 
+set mime_forward_rest = yes
+
 set mailcap_path  = ~/.mutt/mailcap
 
 set mail_check = 60  # in seconds
+
+unset ssl_usesystemcerts
+set certificate_file=~/.mutt/certificates
 
 bind editor <space> noop    # so that the line editor accepts IMAP folders with spaces in their names
 
@@ -67,11 +74,22 @@ macro index,pager gl "<change-folder>?" "Go to 'Label'" # will take you to a lis
 
 macro index,pager b '<enter-command>toggle sidebar_visible<enter>'
 
+macro attach O \
+"\
+<enter-command>unset wait_key<enter>\
+<shell-escape>rm -f ${HOME}/tmp/mutt-attach<enter>\
+<save-entry><kill-line>${HOME}/tmp/mutt-attach<enter>\
+<shell-escape>open ${HOME}/tmp/mutt-attach<enter>\
+"
+
+
 set sig_on_top = yes
 set signature = "~/.mutt/signature"
 
+macro index,browser .r "<enter-command>source ~/.mutt/muttrc<enter>"
+
 source ~/.mutt/colors
-source ~/.mutt/pgp
+source ~/.mutt/gpg.rc
 
 source ~/.mutt/accounts.init
 

@@ -79,6 +79,7 @@ export PS1;
 
 # If Homebrew
 [ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/bin:$PATH
+[ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/sbin:$PATH
 
 if _has_cmd brew ; then
   BREW_PREFIX=`brew --prefix`

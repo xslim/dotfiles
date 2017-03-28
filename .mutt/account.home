@@ -29,5 +29,4 @@ macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 
 set header_cache=~/Mail/home/cache/headers
 set message_cachedir=~/Mail/home/cache/bodies
-set certificate_file=~/Mail/home/certificates
 
