@@ -1,5 +1,7 @@
 # ~/dotfiles
 
+My dotfiles. Please use your own.
+
 ## Install
 
 ```sh
