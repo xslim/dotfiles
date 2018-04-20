@@ -9,7 +9,6 @@ export LC_CTYPE=en_US.UTF-8
 export CLICOLOR=1
 export EDITOR='vim'
 
-export PATH="${HOME}/bin:/usr/local/bin:/usr/local/sbin:${PATH}"
 
 # Faster, but make break stuff
 #export MAKEFLAGS='-j 3'
@@ -80,6 +79,8 @@ export PS1;
 # If Homebrew
 [ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/bin:$PATH
 [ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/sbin:$PATH
+
+export PATH="${HOME}/bin_local:${HOME}/bin:${PATH}"
 
 if _has_cmd brew ; then
   BREW_PREFIX=`brew --prefix`
