@@ -101,9 +101,8 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-###############################################################################
-# Dock, Dashboard, and hot corners                                            #
-###############################################################################
+
+# Dock, Dashboard, and hot corners                                            
 
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.dock tilesize -int 36
@@ -132,9 +131,7 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 defaults write com.apple.dock autohide -bool true
 
 
-###############################################################################
 # Safari 
-###############################################################################
 
 # Hide Safari's bookmark bar.
 defaults write com.apple.Safari ShowFavoritesBar -bool false
@@ -159,9 +156,8 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Disable Safari’s thumbnail cache for History and Top Sites
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-###############################################################################
-# Mail                                                                        #
-###############################################################################
+
+# Mail                                                                        
 
 # Disable send and reply animations in Mail.app
 defaults write com.apple.mail DisableReplyAnimations -bool true
@@ -170,7 +166,7 @@ defaults write com.apple.mail DisableSendAnimations -bool true
 # Disable inline attachments (just show the icons)
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
-###############################################################################
+
 echo "Terminal"
 
 defaults write com.apple.Terminal "Window Settings" -dict-add "Pro2" "
@@ -230,7 +226,7 @@ defaults write com.apple.Terminal Shell -string "/bin/bash"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro2"
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro2"
 
-###############################################################################
+
 echo "Setting Messages"
 
 # Disable automatic emoji substitution (i.e. use plain text smileys)
@@ -243,7 +239,7 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 
-###############################################################################
+
 echo "Setting Xcode"
 
 # Always use spaces for indenting
