@@ -77,14 +77,18 @@ PS1+="\[\033[00m\]\$ "
 export PS1;
 
 # If Homebrew
-[ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/bin:$PATH
-[ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/sbin:$PATH
+if [ -d ${HOME}/homebrew ]; then
+  export VIM_APP_DIR="${HOME}/Applications"
+  export PATH=${HOME}/homebrew/bin:$PATH
+  export PATH=${HOME}/homebrew/sbin:$PATH
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
+fi
+
 
 export PATH="${HOME}/bin_local:${HOME}/bin:${PATH}"
 
 if _has_cmd brew ; then
   BREW_PREFIX=`brew --prefix`
-  export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
 
   if [ -f ${BREW_PREFIX}/etc/bash_completion ]; then
     . ${BREW_PREFIX}/etc/bash_completion
@@ -123,9 +127,11 @@ _has_cmd rbenv && eval "$(rbenv init -)"
 
 #export GOPATH=${HOME}/src/gocode
 
-
+if [ -d "${HOME}/.gnupg" ]; then
+  export GPG_TTY=$(tty)
+  export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+fi
 
 # load local shell configuration if present
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
-
 
