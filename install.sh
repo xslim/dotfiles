@@ -3,7 +3,7 @@
 set -e
 
 FILES=("bin" \
-  ".bashrc" ".bash_profile" ".bash_colors" ".bash_aliases" \
+  ".bashrc" ".bash_profile" ".bash_colors" \
   ".tmux.conf" \
   ".gitconfig" ".gitignore" \
   ".vimrc" ".vim" \
