@@ -79,6 +79,7 @@
   tool = vimdiff
   conflictstyle = diff3
   prompt = false
+  keepBackup = false
 
 [push]
   default = simple #matching
