@@ -37,6 +37,8 @@ function d_run() {
   
   set -x
   
+  # -u "node" -m "300M" --memory-swap "1G" 
+  
   docker run -it --rm --name ${PWD##*/} \
     ${env_file_param} -e "PORT=${PORT}" -p ${PORTS} \
     -v "$PWD":/src -w /src $@
@@ -49,8 +51,22 @@ function d_run() {
   return 0
 }
 
+function d_build() {
+  name=${PWD##*/}
+  
+  if [[ "$(docker images -q ${name} 2> /dev/null)" == "" ]]; then
+    docker build -t ${name} .
+    docker images
+  else
+    d_run ${name}
+  fi
+  
+}
+
 if [ "$1" ]; then
   d_run "$@"
+elif [ -f "Dockerfile" ]; then
+  d_build
 else
   d_start
 fi
