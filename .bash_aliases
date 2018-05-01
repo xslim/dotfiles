@@ -32,5 +32,7 @@ alias mkdir="mkdir -p"
 
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
+alias mypubkey="gpg2 --export-ssh-key $(gpg --card-status | sed '/^Authentication/!d;s/ //g;s/.*:[A-Z0-9]*\([A-Z0-9]\{16\}\)$/\1/')"
+
 _a_ssht () { ssh $@ -t 'tmux has-session && exec tmux attach -d || exec tmux' -t 0 ; }
 alias ssht=_a_ssht
