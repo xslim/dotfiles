@@ -2,7 +2,7 @@
 
 
 function _git_bits {
-  # _has_cmd git || return 
+# _has_cmd git || return 
   git status --ignore-submodules --porcelain $1 2> /dev/null | (
       unset branch dirty deleted untracked newfile copied renamed
       while read line ; do
@@ -38,6 +38,7 @@ function echo_if_dirty_git {
   [ -n "$out" ] && echo "`basename ${PWD}` - $out"
 }
 
-echo_if_dirty_git
+export -f _git_bits
+export -f echo_if_dirty_git
 
-# find . -type d -name '.git' -maxdepth 5 -execdir git_bits ';'
+find . -type d -name '.git' -maxdepth 5 -execdir bash -c 'echo_if_dirty_git "$0"' {} \;
