@@ -43,7 +43,7 @@ set mailcap_path  = ~/.mutt/mailcap
 
 set mail_check = 60  # in seconds
 
-unset ssl_usesystemcerts
+#unset ssl_usesystemcerts
 set certificate_file=~/.mutt/certificates
 
 bind editor <space> noop    # so that the line editor accepts IMAP folders with spaces in their names

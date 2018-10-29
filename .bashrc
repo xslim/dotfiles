@@ -46,9 +46,10 @@ _has_cmd () { command -v "$1" >/dev/null 2>&1 ; }
 _is_macos () { [ "$(uname -s)" == 'Darwin' ] ; }
 _is_linux () { [ "$(uname -s)" == 'Linux' ] ; }
 
-function __git_ps1_bits {
+
+function _git_bits {
   _has_cmd git || return 
-  git status --ignore-submodules --porcelain -b 2> /dev/null | (
+  git status --ignore-submodules --porcelain $1 2> /dev/null | (
       unset branch dirty deleted untracked newfile copied renamed
       while read line ; do
           case "${line//[[:space:]]/}" in
@@ -65,9 +66,15 @@ function __git_ps1_bits {
       local out=""
       bits="$dirty$deleted$untracked$newfile$copied$renamed"
       [ -n "$branch" ] && out+=$branch
-      [ -n "$bits" ] && out+=" $bits"
-      [ -n "$out" ] && echo "($out)" || echo
+      [ -n "$branch" ] && [ -n "$bits" ] && out+=" "
+      [ -n "$bits" ] && out+=$bits
+      [ -n "$out" ] && echo $out
   )
+}
+
+function __git_ps1_bits {
+  local out=`_git_bits -b`
+  [ -n "$out" ] && echo "($out)" || echo
 }
 
 PS1="\[\033[01;34m\]\W";
@@ -84,7 +91,7 @@ if _has_cmd brew ; then
   BREW_PREFIX=`brew --prefix`
 
   export VIM_APP_DIR="${HOME}/Applications"
-  export HOMEBREW_CASK_OPTS="--appdir=~/Applications --caskroom=~/Caskroom"
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
   [ -f ${BREW_PREFIX}/etc/bash_completion ] && source ${BREW_PREFIX}/etc/bash_completion
   [ -d ${BREW_PREFIX}/opt/android-sdk ] && export ANDROID_HOME=${BREW_PREFIX}/opt/android-sdk
@@ -97,30 +104,4 @@ _has_cmd rbenv && eval "$(rbenv init -)"
 
 [ -f ~/bin/z.sh ] && source ~/bin/z.sh
 [ -f ~/.bash_colors ] && source ~/.bash_colors
-[ -f ~/.bashrc.local ] && source ~/.bashrc.local
-
-# Aliases
-
-_is_linux && alias ls='ls --color=auto'
-
-# macOS has no stuff
-if _is_macos; then
-  _has_cmd md5 && alias md5sum="md5"
-  _has_cmd shasum && alias sha1sum="shasum"
-  _has_cmd ack-grep && alias ack=ack-grep
-
-  alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
-fi
-
-alias timestamp='date +"%s"'
-alias datestamp='date +"%F %T"'
-alias ll='ls -lAh'
-alias tm='tmux attach || tmux new'
-alias mkdir="mkdir -p"
-
-alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
-
-alias mypubkey="gpg2 --export-ssh-key $(gpg --card-status | sed '/^Authentication/!d;s/ //g;s/.*:[A-Z0-9]*\([A-Z0-9]\{16\}\)$/\1/')"
-
-_a_ssht () { ssh $@ -t 'tmux has-session && exec tmux attach -d || exec tmux' -t 0 ; }
-alias ssht=_a_ssht
+[ -f ~/.aliases ] && source ~/.aliases

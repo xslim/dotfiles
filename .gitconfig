@@ -3,7 +3,7 @@
 [user]
   name = Taras Kalapun
   email = t.kalapun@gmail.com
-  signingkey = E3B84873DFD4AA69
+#  signingkey = E3B84873DFD4AA69
 
 [github]
   user = xslim
@@ -11,6 +11,8 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore
+  whitespace = trailing-space,space-before-tab
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
 [apply]
   whitespace = nowarn
@@ -34,7 +36,7 @@
   rbc = rebase --continue
   sub = submodule
   sup = submodule update --init
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr, %an)%Creset' --abbrev-commit --date=relative
+  l   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ls  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
   ll  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
@@ -85,9 +87,12 @@
   default = simple #matching
   followTags = true
 
+[pull]
+	rebase = true
+
 [commit]
   # https://help.github.com/articles/signing-commits-using-gpg/
-  gpgsign = true
+  #gpgsign = true
 
 [branch]
   autosetupmerge = always
@@ -95,6 +100,8 @@
 
 [branch "master"]
   rebase = true
+  remote = origin
+  merge = refs/heads/master
 
 [filter "media"]
   clean = git-media-clean %f
@@ -104,8 +111,6 @@
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
-
-[pull]
-	rebase = true
+  
 [gpg]
 	program = gpg2

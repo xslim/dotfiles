@@ -4,7 +4,7 @@ set -e
 
 FILES=("bin" \
   ".bashrc" ".bash_profile" ".bash_colors" \
-  ".tmux.conf" \
+  ".tmux.conf" ".curlrc" \
   ".gitconfig" ".gitignore" \
   ".vimrc" ".vim" \
   ".mutt")
