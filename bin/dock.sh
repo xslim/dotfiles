@@ -51,7 +51,7 @@ run() {
   # -u "node" -m "300M" --memory-swap "1G" 
   
   docker run -it --rm --name ${PWD##*/} \
-    ${env_file_param} -e "PORT=${PORT}" -p ${PORTS} \
+    ${env_file_param} -e "PORT=${PORT}" -p 3000:3000 -p ${PORTS} \
     -v "$PWD":/src -w /src $@
   
   #set +x
