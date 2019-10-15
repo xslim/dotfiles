@@ -29,18 +29,7 @@ shopt -u mailwarn
 unset MAILCHECK
 
 # check for window resizing whenever the prompt is displayed
-shopt -s checkwinsize 
-
-# set JAVA_HOME if on Mac OS
-if [ -z "$JAVA_HOME" -a -d /System/Library/Frameworks/JavaVM.framework/Home ]; then
-  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
-fi
-
-if [ -d "${HOME}/.gnupg" ]; then
-  export GPG_TTY=$(tty)
-  export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-fi
-
+shopt -s checkwinsize
 
 _has_cmd () { command -v "$1" >/dev/null 2>&1 ; }
 _is_macos () { [ "$(uname -s)" == 'Darwin' ] ; }
@@ -48,7 +37,7 @@ _is_linux () { [ "$(uname -s)" == 'Linux' ] ; }
 
 
 function _git_bits {
-  _has_cmd git || return 
+  _has_cmd git || return
   git status --ignore-submodules --porcelain $1 2> /dev/null | (
       unset branch dirty deleted untracked newfile copied renamed
       while read line ; do
@@ -84,18 +73,23 @@ PS1+="\[\033[00m\]\$ "
 export PS1;
 
 # PATH
-[ -d ${HOME}/homebrew ] && export PATH=${HOME}/homebrew/bin:${HOME}/homebrew/sbin:$PATH
-export PATH="${HOME}/bin_local:${HOME}/bin:${PATH}"
+_has_cmd gem && PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+[ -d ${HOME}/homebrew ] && PATH=${HOME}/homebrew/bin:${HOME}/homebrew/sbin:$PATH
+[ -d ${HOME}/Library/Python/2.7 ] && PATH=${HOME}/Library/Python/2.7/bin:$PATH
+export PATH="${HOME}/bin_local:${HOME}/bin:${HOME}/.local/bin:${PATH}"
+
 
 if _has_cmd brew ; then
-  BREW_PREFIX=`brew --prefix`
-
-  export VIM_APP_DIR="${HOME}/Applications"
+  local BREW_PREFIX="$(brew --prefix)"
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-
   [ -f ${BREW_PREFIX}/etc/bash_completion ] && source ${BREW_PREFIX}/etc/bash_completion
   [ -d ${BREW_PREFIX}/opt/android-sdk ] && export ANDROID_HOME=${BREW_PREFIX}/opt/android-sdk
   [ -d ${BREW_PREFIX}/opt/go/ ] && export PATH=$PATH:${BREW_PREFIX}/opt/go/libexec/bin
+fi
+
+# set JAVA_HOME if on Mac OS
+if [ -z "$JAVA_HOME" -a -d /System/Library/Frameworks/JavaVM.framework/Home ]; then
+  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 fi
 
 _has_cmd rbenv && eval "$(rbenv init -)"

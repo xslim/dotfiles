@@ -12,6 +12,7 @@ alias bigfiles="du -ah . | sort -nr | head"
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
 alias hgrep="history | grep"
+alias rehash='hash -r'
 
 alias mypubkey="gpg2 --export-ssh-key $(gpg --card-status | sed '/^Authentication/!d;s/ //g;s/.*:[A-Z0-9]*\([A-Z0-9]\{16\}\)$/\1/')"
 
@@ -32,13 +33,18 @@ if _is_macos; then
   # Show/hide hidden files in Finder
   alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
   alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-  
+
   # Hide/show all desktop icons (useful when presenting)
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
   # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
   alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+else
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+  # alias pbcopy='xsel --clipboard --input'
+  # alias pbpaste='xsel --clipboard --output'
 fi
 
 # svg2png() { qlmanage -t -s $1 -o . ${2} }
@@ -50,30 +56,38 @@ alias map="xargs -n1"
 
 #alias dirtygit="find . -type d -name '.git' -maxdepth 5 -execdir dirtygit.sh {} ';'"
 
+alias todo="todo.sh"
+
 # Jumps
 alias p="cd ~/projects"
 alias pg="cd ~/projects/github"
 
-extract () {
-    if [ -f $1 ]; then
-        case $1 in
-            *.tar.bz2)  tar -jxvf $1                        ;;
-            *.tar.gz)   tar -zxvf $1                        ;;
-            *.bz2)      bunzip2 $1                          ;;
-            *.dmg)      hdiutil mount $1                    ;;
-            *.gz)       gunzip $1                           ;;
-            *.tar)      tar -xvf $1                         ;;
-            *.tbz2)     tar -jxvf $1                        ;;
-            *.tgz)      tar -zxvf $1                        ;;
-            *.zip)      unzip $1                            ;;
-            *.ZIP)      unzip $1                            ;;
-            *.pax)      cat $1 | pax -r                     ;;
-            *.pax.Z)    uncompress $1 --stdout | pax -r     ;;
-            *.rar)      unrar x $1                          ;;
-            *.Z)        uncompress $1                       ;;
-            *)          echo "'$1' cannot be extracted/mounted via extract()" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
+extract() {
+    [ ! -f $1 ] && exit 1
+    case $1 in
+        *.tar.bz2)  tar -jxvf $1                        ;;
+        *.tar.gz)   tar -zxvf $1                        ;;
+        *.bz2)      bunzip2 $1                          ;;
+        *.dmg)      hdiutil mount $1                    ;;
+        *.gz)       gunzip $1                           ;;
+        *.tar)      tar -xvf $1                         ;;
+        *.tbz2)     tar -jxvf $1                        ;;
+        *.tgz)      tar -zxvf $1                        ;;
+        *.zip)      unzip $1                            ;;
+        *.ZIP)      unzip $1                            ;;
+        *.pax)      cat $1 | pax -r                     ;;
+        *.pax.Z)    uncompress $1 --stdout | pax -r     ;;
+        *.rar)      unrar x $1                          ;;
+        *.pkg)      pkgutil --expand $1 .               ;;
+        *.Z)        uncompress $1                       ;;
+        Payload)    tar -xvf $1                         ;;# example.pkg/Payload 
+        *)          echo "'$1' cannot be extracted/mounted via extract()" ;;
+    esac
 }
+alias extract=extract
+
+transfer() {
+    curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename "$1") | tee /dev/null;
+    echo
+}
+alias transfer=transfer
