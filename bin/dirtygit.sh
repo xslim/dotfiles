@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
 function _git_bits {
-# _has_cmd git || return 
+# _has_cmd git || return
   git status --ignore-submodules --porcelain $1 2> /dev/null | (
       unset branch dirty deleted untracked newfile copied renamed
       while read line ; do
