@@ -9,13 +9,44 @@ start() {
   docker system prune
 }
 
+create_vb() {
+  docker-machine create --driver virtualbox default
+}
+
 stop() {
   docker-machine stop
+}
+
+ssh() {
+  docker-machine ssh default
+}
+
+ip() {
+  docker-machine ip default
+}
+
+screen() {
+#  screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+  docker run -it --rm --privileged --pid=host justincormack/nsenter1
+}
+
+anaconda_jupyter() {
+  echo "$(docker-machine ip default):8888"
+  # docker run -it --rm -p 8888:8888 -v "$PWD":/opt/notebooks continuumio/anaconda3 /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+  docker run -it --rm -p 8888:8888 -v "$PWD":/opt/notebooks continuumio/anaconda3 /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
 }
 
 pflix() {
   docker-machine ip
   docker run -it --rm -p 8888:8888 --name peerflix cdrage/peerflix $1
+}
+
+nettest() {
+  docker run -it --rm --net=bridge praqma/network-multitool $@
+}
+
+runsh() {
+  docker run -it --rm $@ sh
 }
 
 run() {
@@ -33,7 +64,7 @@ run() {
 
   # -u "node" -m "300M" --memory-swap "1G"
 
-  docker run -it --rm --name ${PWD##*/} \
+  docker run -it --rm --pid=host --name ${PWD##*/} \
     ${env_file_param} -e "PORT=${PORT}" -p 3000:3000 -p 8080:8080 -p ${PORTS} \
     -v "$PWD":/src -w /src $@
 
@@ -87,6 +118,17 @@ jekyll() {
   fi
 
   docker run -it --rm -v "${PWD}:/site" -p "4000:4000" -p "35729:35729" ${env_file_param} --name jekyll gh-pages $@
+}
+
+node() {
+  docker run -it --rm --pid=host --name node \
+    -v "$PWD":/usr/src/app -w /usr/src/app \
+    -p "3000:3000" -p "8000:8000" -p "8080:8080" -p "8888:8888" \
+    node:alpine $@
+}
+
+curl() {
+  docker run -it --rm curlimages/curl --name curl $@
 }
 
 "$@"
