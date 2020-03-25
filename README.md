@@ -55,7 +55,11 @@ unset OPENSSLPASS
 - `cp docker ~/bin`
 - Download `docker-machine` from https://github.com/docker/machine/releases
 - `curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-`uname -s`-`uname -m` > ~/bin/docker-machine && chmod +x ~/bin/docker-machine`
+
+### Creating VirtualBox Machine
 - run `docker-machine create --driver virtualbox default`
+
+### Running via VB
 - run 
   - `docker-machine start`
   - `docker-machine env default`
