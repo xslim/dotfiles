@@ -41,4 +41,4 @@ function echo_if_dirty_git {
 export -f _git_bits
 export -f echo_if_dirty_git
 
-find . -type d -name '.git' -maxdepth 5 -execdir bash -c 'echo_if_dirty_git "$0"' {} \;
+find . -type d -name '.git' -maxdepth 5 -execdir bash -c 'echo_if_dirty_git "$0"' {} \; 2>/dev/null
