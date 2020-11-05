@@ -1,7 +1,9 @@
+
 export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export CLICOLOR=1
-export EDITOR='vim'
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+
 
 # Faster, but make break stuff
 #export MAKEFLAGS='-j 3'
@@ -35,6 +37,7 @@ _has_cmd () { command -v "$1" >/dev/null 2>&1 ; }
 _is_macos () { [ "$(uname -s)" == 'Darwin' ] ; }
 _is_linux () { [ "$(uname -s)" == 'Linux' ] ; }
 
+_has_cmd vim && export EDITOR='vim' || _has_cmd vi && export EDITOR='vi'
 
 function _git_bits {
   _has_cmd git || return
@@ -76,7 +79,12 @@ export PS1;
 _has_cmd gem && PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 [ -d ${HOME}/homebrew ] && PATH=${HOME}/homebrew/bin:${HOME}/homebrew/sbin:$PATH
 [ -d ${HOME}/Library/Python/2.7 ] && PATH=${HOME}/Library/Python/2.7/bin:$PATH
-export PATH="${HOME}/bin_local:${HOME}/bin:${HOME}/.local/bin:${PATH}"
+[ -d ${HOME}/bin_local ] && PATH=${HOME}/bin_local:$PATH
+[ -d ${HOME}/.local/bin ] && PATH=${HOME}/.local/bin:$PATH
+export PATH="${HOME}/bin:${PATH}"
+
+# [ -d /usr/local/adyen/lib ] && export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/adyen/lib:$DYLD_FALLBACK_LIBRARY_PATH
+
 
 
 if _has_cmd brew ; then
