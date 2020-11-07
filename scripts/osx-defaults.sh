@@ -102,6 +102,10 @@ defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 
+# Show VPN on the Menu Bar
+defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/vpn.menu"
+killall SystemUIServer -HUP
+
 # Dock, Dashboard, and hot corners                                            
 
 # Set the icon size of Dock items to 36 pixels

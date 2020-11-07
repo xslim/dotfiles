@@ -6,7 +6,11 @@ My dotfiles. Please use your own.
 
 ```sh
 git clone --depth 1 git@github.com:xslim/dotfiles.git ~/dotfiles
-install.sh -f
+cd ~/dotfiles
+
+brew bundle install -v
+
+
 ```
 
 ## Cheatsheet commands

@@ -5,4 +5,5 @@
 ._*
 node_modules
 Gemfile.lock
+Brewfile.lock.json
 *~
