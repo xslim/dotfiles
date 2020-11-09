@@ -131,6 +131,17 @@ curl() {
   docker run -it --rm curlimages/curl --name curl $@
 }
 
+go() {
+  name=${PWD##*/}
+  pkg="github.com/xslim/${name}"
+  workdir="/go/src/${pkg}"
+
+  # image="golang"
+  image="go-cobra"
+
+  docker run -it --rm -v "$PWD":${workdir} -w ${workdir} ${image} $@
+}
+
 "$@"
 
 
