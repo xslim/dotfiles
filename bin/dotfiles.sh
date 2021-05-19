@@ -131,15 +131,25 @@ _status() {
     done
 
   fi
-
-
-
 }
 
-action=${1:-"status"}
+# TODO - add support for -f and --force
+link() {
+  pushd "$DOTFILES_ROOT"
+  for file in $( ls -A | grep -vE '\.exclude*|\.git$|\.gitignore|\.gitmodules|.*.md' ) ; do
+    # Silently ignore errors here because the files may already exist
+    ln -sfv "$PWD/$file" "$HOME" || true
+  done
+  popd
+}
+
+echo "Assuming DOTFILES_ROOT = $DOTFILES_ROOT"
+
+action=${1}
 case "$action" in
   install )
     echo "Installing"
+    link
     ;;
   push )
     echo "pushing"
