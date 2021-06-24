@@ -88,6 +88,7 @@ export PS1;
 
 # PATH
 _has_cmd gem && PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+[ -d /opt/homebrew ] && PATH=/opt/homebrew/bin:${HOME}/homebrew/sbin:$PATH
 [ -d ${HOME}/homebrew ] && PATH=${HOME}/homebrew/bin:${HOME}/homebrew/sbin:$PATH
 [ -d ${HOME}/Library/Python/2.7 ] && PATH=${HOME}/Library/Python/2.7/bin:$PATH
 [ -d ${HOME}/bin_local ] && PATH=${HOME}/bin_local:$PATH
@@ -99,7 +100,7 @@ export PATH="${HOME}/bin:${PATH}"
 
 
 if _has_cmd brew ; then
-  local BREW_PREFIX="$(brew --prefix)"
+  BREW_PREFIX="$(brew --prefix)"
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   [ -f ${BREW_PREFIX}/etc/bash_completion ] && source ${BREW_PREFIX}/etc/bash_completion
   [ -d ${BREW_PREFIX}/opt/android-sdk ] && export ANDROID_HOME=${BREW_PREFIX}/opt/android-sdk

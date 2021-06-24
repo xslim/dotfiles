@@ -14,7 +14,7 @@ alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-
 alias hgrep="history | grep"
 alias rehash='hash -r'
 
-alias mypubkey="gpg2 --export-ssh-key $(gpg --card-status | sed '/^Authentication/!d;s/ //g;s/.*:[A-Z0-9]*\([A-Z0-9]\{16\}\)$/\1/')"
+_has_cmd gpg && alias mypubkey="gpg2 --export-ssh-key $(gpg --card-status | sed '/^Authentication/!d;s/ //g;s/.*:[A-Z0-9]*\([A-Z0-9]\{16\}\)$/\1/')"
 
 # Recursively delete `.DS_Store` files
 alias cleanup_ds="find . -type f -name '*.DS_Store' -ls -delete"
@@ -91,3 +91,5 @@ transfer() {
     echo
 }
 alias transfer=transfer
+
+alias dockerrun="docker run -it --rm --pid=host -e \"PORT=8000\" -p 8000:8000 -v \"$PWD\":/src -w /src"

@@ -50,8 +50,6 @@ runsh() {
 }
 
 run() {
-  docker-machine ip
-
   PORT=${PORT:-8000}
   PORTS=${PORTS:-"${PORT}:${PORT}"}
 
