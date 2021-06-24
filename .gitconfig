@@ -31,7 +31,7 @@
   keepBackup = false
 
 [push]
-	default = upstream
+	default = simple
   followTags = true
 
 [pull]
