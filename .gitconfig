@@ -113,5 +113,8 @@
   la = "!git config -l | grep alias | cut -c 7- | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g'"
   #la  = "!grep '\t=' ~/.gitconfig | sed -e 's/=/^[[0;31m=^[[0m/g' | sed -e 's/#.*/^[[0;32m&^[[0m/g' | less -R"
 
+  # git mgd branch-name to merge and delete a branch in one go
+  mgd = "!git merge $1 && git branch -d $1; #"
+
   # Unpushed stuff
   unpushed = "log --branches --not --remotes"
