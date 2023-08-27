@@ -2,9 +2,17 @@
 
 My dotfiles. Please use your own.
 
+## Prerequisite
+brew.sh
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 ## Install
 
 ```sh
+
 git clone --depth 1 git@github.com:xslim/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
